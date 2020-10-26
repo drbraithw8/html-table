@@ -1,0 +1,88 @@
+ <html> 
+ 	<head> 
+    <style> 
+      #table1 table
+      { background-color: #c5b073;
+      }
+      #table1 thead
+      { background-color: #e3c48f;
+      }
+      #table1 .even
+      { background-color: #f1e1b3;
+      }
+    </style> 
+ 	</head> 
+	<body> 
+		<div id="table1"> </div> 
+
+		<script src="table.js"> </script> 
+
+    <script> 
+
+      var table = new sbTable("table1", 2);
+      table.addCol({name:'isSel', heading:"Sel", type:'bool',
+                    isSort:true, cpr:null, dflt:true, isEditable:true});
+      table.addCol({name:'identNum', heading:"not shown", type:'int', isHidden:true});
+      table.addCol({name:'givenName', heading:"Given Name", type:'string', isSort:true});
+      table.addCol({name:'surName', heading:"Surname", type:'string', isSort:true, isEditable:true});
+      table.addCol({name:'mark', heading:"Mark", type:'float', isEditable:true});
+//       table.addCol({name:'mark', heading:"Mark", type:'float', isSort:true, href:'hello(%)world', hrefSub:'identNum'});
+      table.stateAddrows();
+      table.addRow({identNum:1, givenName:'Stephen',surName:'Brai"thwaite', mark:32.5, isSel:0});
+      table.addRow({identNum:2, givenName:'Andrew',surName:'Clough', mark: 21, isSel:0});
+      table.addRow({identNum:3, givenName:'Alan',surName:"Cam'eron", mark: 52});
+      table.render();
+
+      </script> 
+
+      <form> 
+        <input type="button", value="Summarise", onclick="showStuff()"> 
+        <input type="button", value="Show", onclick="showStuffF()"> 
+      </form> 
+      <br> <br> 
+		<div id="stuff"> </div> 
+
+      <script> 
+		function Summarise()
+		{   var el;
+ 
+			this.addRow = function(row)
+			{	var rowStr = '<tr><td>' + row.identNum + '</td><td>' + row.surName + '</td></tr>'; 
+				this.tblStr += rowStr;
+			}
+ 
+			this.doRow = function(row)
+			{	this.addRow(row);
+			}
+ 
+			this.tblStr = '<table> <thead> <th> Number </th> <th> Name </th> </thead>' ;
+			table.doAllRows(this);
+			this.tblStr += '</table>' 
+			el = document.getElementById("stuff");	
+			el.innerHTML = this.tblStr;
+		}
+
+		function showStuff()
+		{	var sum = new Summarise();
+		}
+
+
+	var tblStr;
+    function showOne(row)
+	{	var rowStr = '<tr><td>' + row.identNum + '</td><td>' + row.surName + '</td></tr>'; 
+		tblStr += rowStr;
+	}
+
+    function showStuffF()
+	{   var el;
+		tblStr = '<table> <thead> <th> Number </th> <th> Name </th> </thead>' ;
+    	table.doAllRows(showOne);
+		tblStr += '</table>' 
+		el = document.getElementById("stuff");	
+		el.innerHTML = this.tblStr;
+	}
+
+    </script> 
+
+	</body> 
+ </html> 
