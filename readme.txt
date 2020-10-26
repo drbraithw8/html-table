@@ -16,6 +16,8 @@ This Javascript HTML table class allows you to:-
 
 *	Make hidden columns.
 
+*	Cells can contain links.
+
 *	If you make a column sortable, and tell table the data type of that
 	column (float, int, string), then the user can sort the column by
 	clicking on the header.  It sorts in ascending order first, but a
